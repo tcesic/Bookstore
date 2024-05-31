@@ -8,16 +8,16 @@ Bookstore project uses DataAccess project for manipulation with database entites
 DataAccess is project for creating and seeding database and do all manipulations with EntityFrameforkCore 6.0.
 
 # Features
-CRUD operations for items
-Search of items
-JWT Authentication
-OAuth - Client credentials and Implicit flow
-Swagger Documentation
-Docker support
+- CRUD operations for items
+- Search of items
+- JWT Authentication
+- OAuth - Client credentials and Implicit flow
+- Swagger Documentation
+- Docker support
 
 # Prerequisites
-.NET 6.0
-SQL Server
+- .NET 6.0
+- SQL Server
 
 # Installation and testing
 
