@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/etc/nginx/certs
+    depends_on:
+      - bookstore
+
+  bookstore:
+    image: bookstore
+    build:
+      context: .
+      dockerfile: ./BookStoreNew/Dockerfile
+    ports:
+      - "7037:443"  # Map host port 7037 to container port 443 for HTTPS
+      - "5133:80"   # Map host port 5133 to container port 80 for HTTP
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=BookStoreDb;User=sa;Password=Your_password123;
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Your_password123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+
+volumes:
+  sqlserverdata:
